@@ -16,6 +16,12 @@ export class BaseStepComponent {
     const currentStep = await firstValueFrom(
       this.multiStepFormService.getCurrentUserStep()
     );
+    /**
+     * check if the form is valid in the first run, should the user have
+     * navigated to and fro the current view
+     */
+    this.multiStepFormService.setCurrentStepIsValid(formRef.valid);
+
     formRef.valueChanges.pipe(takeUntil(this._onDestroy$)).subscribe({
       next: (formValue) => {
         // update the regerenced multistep form entry with this form's

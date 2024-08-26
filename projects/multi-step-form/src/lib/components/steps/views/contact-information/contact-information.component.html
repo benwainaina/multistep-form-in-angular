@@ -1,1 +1,26 @@
-<p>contact-information works!</p>
+<form [formGroup]="form">
+  <input
+    class="poppins-regular"
+    type="text"
+    placeholder="Email"
+    formControlName="email"
+  />
+  <input
+    class="poppins-regular"
+    type="text"
+    placeholder="Linked In"
+    formControlName="linkedin"
+  />
+  <input
+    class="poppins-regular"
+    type="text"
+    placeholder="Instagram"
+    formControlName="instagram"
+  />
+  <input
+    class="poppins-regular"
+    type="text"
+    placeholder="Twitter"
+    formControlName="twitter"
+  />
+</form>
