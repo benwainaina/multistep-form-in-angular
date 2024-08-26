@@ -38,9 +38,7 @@ export class MultiStepFormService {
   }
 
   public updateFieldForm(step: string, field: string, value: any): void {
-    if (this._multiStepForm[step] && this._multiStepForm[field]) {
-      this._multiStepForm[step][field] = value;
-    }
+    this._multiStepForm[step][field] = value;
   }
 
   public getFormFields(): any {
@@ -72,5 +70,9 @@ export class MultiStepFormService {
 
   public setCurrentStepIsValid(status: boolean): void {
     this._currentStepIsValid$.next(status);
+  }
+
+  public getStepFieldValues(stepKey: string) {
+    return this._multiStepForm[stepKey];
   }
 }

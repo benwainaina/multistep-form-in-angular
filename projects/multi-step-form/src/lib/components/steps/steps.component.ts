@@ -1,7 +1,7 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild, ViewContainerRef } from '@angular/core';
 import { MultiStepFormService } from '../../multi-step-form.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'lib-steps',
@@ -11,8 +11,36 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './steps.component.scss',
 })
 export class StepsComponent {
+  @ViewChild('outlet', { static: true, read: ViewContainerRef })
+  private _outlet!: ViewContainerRef;
+  private _onDestroy$: Subject<boolean> = new Subject<boolean>();
+
   public multiStepFormService: MultiStepFormService =
     inject(MultiStepFormService);
+
+  ngOnInit(): void {
+    this._listenForPageToRender();
+  }
+
+  private _listenForPageToRender(): void {
+    this.multiStepFormService
+      .getCurrentUserStep()
+      .pipe(takeUntil(this._onDestroy$))
+      .subscribe({
+        next: (step) => {
+          if (this._outlet) {
+            /**
+             * first clear the currently rendered step
+             */
+            this._outlet.clear();
+          }
+          /**
+           * now render the appropriate step
+           */
+          this._outlet.createComponent(step.component);
+        },
+      });
+  }
 
   public async navigateToStep(direction: 'next' | 'previous') {
     if (direction === 'previous') {
