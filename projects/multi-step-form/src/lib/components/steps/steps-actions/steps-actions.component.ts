@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './steps-actions.component.html',
-  styleUrl: './steps-actions.component.css'
+  styleUrl: './steps-actions.component.scss',
 })
-export class StepsActionsComponent {
-
-}
+export class StepsActionsComponent {}

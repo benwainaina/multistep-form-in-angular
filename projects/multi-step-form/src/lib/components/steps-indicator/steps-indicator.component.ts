@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './steps-indicator.component.html',
-  styleUrl: './steps-indicator.component.css'
+  styleUrl: './steps-indicator.component.scss',
 })
-export class StepsIndicatorComponent {
-
-}
+export class StepsIndicatorComponent {}
