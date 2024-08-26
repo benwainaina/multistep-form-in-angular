@@ -13,7 +13,6 @@ import { BaseStepComponent } from '../base.step.component';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './personal-details.component.html',
-  styleUrl: './personal-details.component.scss',
 })
 export class PersonalDetailsComponent extends BaseStepComponent {
   constructor() {
