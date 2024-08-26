@@ -97,6 +97,39 @@
           }
         }
       }
+    },
+    "multi-step-form": {
+      "projectType": "library",
+      "root": "projects/multi-step-form",
+      "sourceRoot": "projects/multi-step-form/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/multi-step-form/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/multi-step-form/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/multi-step-form/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/multi-step-form/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   }
 }
