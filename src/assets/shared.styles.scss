@@ -3,10 +3,16 @@ form {
   flex-direction: column;
   row-gap: 36px;
 
-  input {
+  input,
+  textarea {
     outline: none;
     border: 1px solid #d9d9d9;
     padding: 18px 12px;
     border-radius: 12px;
+  }
+
+  textarea {
+    min-height: 200px;
+    max-height: 200px;
   }
 }

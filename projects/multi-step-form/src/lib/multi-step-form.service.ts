@@ -41,7 +41,7 @@ export class MultiStepFormService {
     this._multiStepForm[step][field] = value;
   }
 
-  public getFormFields(): any {
+  public getMultistepFormValue(): any {
     return this._multiStepForm;
   }
 

@@ -58,7 +58,7 @@ export class StepsComponent {
           this.multiStepFormService.getCurrentUserStepIndex() ===
           this.multiStepFormService.getFormSteps().length - 1
         ) {
-          console.log('submit');
+          this._submitForm();
         } else {
           this._doNavigate(
             this.multiStepFormService.getCurrentUserStepIndex() + 1
@@ -70,5 +70,15 @@ export class StepsComponent {
 
   private _doNavigate(toPage: number): void {
     this.multiStepFormService.setCurrentUserStep(toPage);
+  }
+
+  private _submitForm(): void {
+    const multiStepForm = this.multiStepFormService.getMultistepFormValue();
+    console.log('Steps values ->', multiStepForm);
+    let flattenedForm: { [field: string]: any } = {};
+    for (const step in multiStepForm) {
+      flattenedForm = { ...flattenedForm, ...multiStepForm[step] };
+    }
+    console.log('To Backend ->', flattenedForm);
   }
 }

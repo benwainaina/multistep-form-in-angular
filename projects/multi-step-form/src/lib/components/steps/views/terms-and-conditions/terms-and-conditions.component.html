@@ -1,1 +1,12 @@
-<p>terms-and-conditions works!</p>
+<div [formGroup]="form" class="wrapper" (click)="onConsent()">
+  <div class="wrapper__checkbox">
+    <div
+      *ngIf="form.get('agree')?.value"
+      class="wrapper__checkbox__checked"
+    ></div>
+  </div>
+  <span class="wrapper__instruction poppins-regular"
+    >I consent to receive new video notifications from
+    <b>&#64;the__b_a_e</b></span
+  >
+</div>
