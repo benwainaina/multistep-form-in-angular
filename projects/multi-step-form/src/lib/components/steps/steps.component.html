@@ -1,1 +1,29 @@
-<p>steps works!</p>
+<div class="wrapper">
+  <div class="wrapper__content">Content</div>
+  <div class="wrapper__navigation poppins-bold">
+    <div
+      class="wrapper__navigation__action"
+      [ngClass]="{
+        disabled: multiStepFormService.getCurrentUserStepIndex() === 0
+      }"
+      (click)="navigateToStep('previous')"
+    >
+      previous
+    </div>
+    <div
+      [ngClass]="{
+        disabled:
+          (multiStepFormService.getCurrentStepIsValid() | async) === false
+      }"
+      class="wrapper__navigation__action"
+      (click)="navigateToStep('next')"
+    >
+      {{
+        multiStepFormService.getCurrentUserStepIndex() ===
+        multiStepFormService.getFormSteps().length - 1
+          ? "submit"
+          : "next"
+      }}
+    </div>
+  </div>
+</div>

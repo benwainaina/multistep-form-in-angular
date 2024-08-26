@@ -12,8 +12,4 @@ import { AsyncPipe, NgClass, NgFor } from '@angular/common';
 export class StepsIndicatorComponent {
   public multistepFromService: MultiStepFormService =
     inject(MultiStepFormService);
-
-  public setActiveStepIndex(stepIndex: number): void {
-    this.multistepFromService.setCurrentUserStep(stepIndex);
-  }
 }
