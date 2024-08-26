@@ -1,1 +1,13 @@
-<p>steps-indicator works!</p>
+<div class="wrapper">
+  <div class="wrapper__steps">
+    <div
+      *ngFor="let step of multistepFromService.getFormSteps(); let idx = index"
+      class="wrapper__steps__step"
+      [ngClass]="{
+        active:
+          step.key === (multistepFromService.getCurrentUserStep() | async)?.key
+      }"
+      (click)="setActiveStepIndex(idx)"
+    ></div>
+  </div>
+</div>

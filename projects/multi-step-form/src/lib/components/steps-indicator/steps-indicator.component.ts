@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MultiStepFormService } from '../../multi-step-form.service';
+import { AsyncPipe, NgClass, NgFor } from '@angular/common';
 
 @Component({
   selector: 'lib-steps-indicator',
   standalone: true,
-  imports: [],
+  imports: [NgFor, AsyncPipe, NgClass],
   templateUrl: './steps-indicator.component.html',
   styleUrl: './steps-indicator.component.scss',
 })
-export class StepsIndicatorComponent {}
+export class StepsIndicatorComponent {
+  public multistepFromService: MultiStepFormService =
+    inject(MultiStepFormService);
+
+  public setActiveStepIndex(stepIndex: number): void {
+    this.multistepFromService.setCurrentUserStep(stepIndex);
+  }
+}

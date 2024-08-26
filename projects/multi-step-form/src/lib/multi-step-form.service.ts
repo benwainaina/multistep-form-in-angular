@@ -8,7 +8,7 @@
 
 import { Injectable } from '@angular/core';
 import { IStep } from './interfaces';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Steps } from './data';
 
 @Injectable({
@@ -16,8 +16,12 @@ import { Steps } from './data';
 })
 export class MultiStepFormService {
   private _multiStepForm: { [view: string]: { [field: string]: any } } = {};
-  private _currentUserStep: number = 0;
+  private _currentUserStep$: BehaviorSubject<IStep>;
   private _registeredSteps: Array<IStep> = Steps;
+
+  constructor() {
+    this._currentUserStep$ = new BehaviorSubject(this._registeredSteps[0]);
+  }
 
   public addStepToForm(
     step: string,
@@ -38,11 +42,15 @@ export class MultiStepFormService {
     return this._multiStepForm;
   }
 
+  public getFormSteps(): Array<IStep> {
+    return this._registeredSteps;
+  }
+
   public getCurrentUserStep(): Observable<IStep> {
-    return of(this._registeredSteps[this._currentUserStep]);
+    return this._currentUserStep$;
   }
 
   public setCurrentUserStep(step: number): void {
-    this._currentUserStep = step;
+    this._currentUserStep$.next(this._registeredSteps[step]);
   }
 }
