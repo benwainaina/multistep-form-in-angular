@@ -13,9 +13,7 @@ export class BaseStepComponent {
   private _onDestroy$: Subject<boolean> = new Subject<boolean>();
 
   protected async listenForFormChanges(formRef: FormGroup) {
-    const currentStep = await firstValueFrom(
-      this.multiStepFormService.getCurrentUserStep()
-    );
+    const currentStep = await this._getCurrentStep();
     /**
      * check if the form is valid in the first run, should the user have
      * navigated to and fro the current view
@@ -40,14 +38,8 @@ export class BaseStepComponent {
     });
   }
 
-  protected setStepValidity(status: boolean): void {
-    this.multiStepFormService.setCurrentStepIsValid(status);
-  }
-
   protected async initializeFormWithSavedFields(formRef: FormGroup) {
-    const currentStep = await firstValueFrom(
-      this.multiStepFormService.getCurrentUserStep()
-    );
+    const currentStep = await this._getCurrentStep();
     const currentStepFieldValues = this.multiStepFormService.getStepFieldValues(
       currentStep.key
     );
@@ -57,9 +49,11 @@ export class BaseStepComponent {
   }
 
   protected async registerFormFields(formRef: FormGroup) {
-    const currentStep = await firstValueFrom(
-      this.multiStepFormService.getCurrentUserStep()
-    );
+    const currentStep = await this._getCurrentStep();
     this.multiStepFormService.addStepToForm(currentStep.key, formRef.value);
+  }
+
+  private _getCurrentStep() {
+    return firstValueFrom(this.multiStepFormService.getCurrentUserStep());
   }
 }
