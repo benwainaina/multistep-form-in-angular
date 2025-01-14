@@ -40,7 +40,8 @@ export class ExperienceComponent extends BaseStepComponent {
     });
   }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    super.ngOnInit();
     this.initializeFormWithSavedFields(this.form);
     this.registerFormFields(this.form);
     this.listenForFormChanges(this.form);

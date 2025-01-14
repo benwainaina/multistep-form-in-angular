@@ -20,6 +20,9 @@ export class MultiStepFormService {
   private _currentUserStepIndex: number = 0;
   private _registeredSteps: Array<IStep> = Steps;
   private _currentStepIsValid$: BehaviorSubject<boolean>;
+  public resetForms$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor() {
     this._currentUserStep$ = new BehaviorSubject(
@@ -74,5 +77,14 @@ export class MultiStepFormService {
 
   public getStepFieldValues(stepKey: string) {
     return this._multiStepForm[stepKey];
+  }
+
+  public resetForm(): void {
+    this.resetForms$.next(true);
+    for (const key in this._multiStepForm) {
+      this._multiStepForm[key] = {};
+    }
+    this.setCurrentUserStep(0);
+    this.resetForms$.next(false);
   }
 }

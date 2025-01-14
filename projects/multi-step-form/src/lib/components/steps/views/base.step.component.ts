@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MultiStepFormService } from '../../../multi-step-form.service';
-import { firstValueFrom, Subject, takeUntil } from 'rxjs';
+import { filter, firstValueFrom, Subject, takeUntil } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,10 @@ export class BaseStepComponent {
   protected multiStepFormService: MultiStepFormService =
     inject(MultiStepFormService);
   private _onDestroy$: Subject<boolean> = new Subject<boolean>();
+
+  ngOnInit(): void {
+    this._listenForFormReset();
+  }
 
   protected async listenForFormChanges(formRef: FormGroup) {
     const currentStep = await this._getCurrentStep();
@@ -55,5 +59,16 @@ export class BaseStepComponent {
 
   private _getCurrentStep() {
     return firstValueFrom(this.multiStepFormService.getCurrentUserStep());
+  }
+
+  private _listenForFormReset(): void {
+    this.multiStepFormService.resetForms$
+      .pipe(
+        takeUntil(this._onDestroy$),
+        filter((status) => status === true)
+      )
+      .subscribe({
+        next: () => this.form.reset(),
+      });
   }
 }

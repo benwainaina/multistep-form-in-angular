@@ -1,7 +1,12 @@
 <div class="wrapper">
-  <div class="wrapper__main-label poppins-bold">Signup</div>
-  <div class="wrapper__main-divider"></div>
-  <div class="wrapper__main-step poppins-bold">
-    {{ (currentStep$ | async)?.label }}
+  <div class="wrapper__label">
+    <div class="wrapper__label__main-label poppins-bold">Signup</div>
+    <div class="wrapper__label__main-divider"></div>
+    <div class="wrapper__label__main-step poppins-bold">
+      {{ (currentStep$ | async)?.label }}
+    </div>
+  </div>
+  <div class="wrapper__reset-action poppins-bold" (click)="onResetForm()">
+    reset form
   </div>
 </div>

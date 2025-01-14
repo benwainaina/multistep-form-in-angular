@@ -19,4 +19,8 @@ export class StepLabelIndicatorComponent {
   constructor() {
     this.currentStep$ = this._multistepFormService.getCurrentUserStep();
   }
+
+  public onResetForm(): void {
+    this._multistepFormService.resetForm();
+  }
 }
