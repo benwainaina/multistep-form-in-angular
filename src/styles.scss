@@ -8,3 +8,14 @@ body {
 
 @import "../src/assets/fonts.styles.scss";
 @import "../src/assets/shared.styles.scss";
+
+// global styles
+.reset-current-form {
+  text-transform: capitalize;
+  opacity: 0.5;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    opacity: 1;
+  }
+}

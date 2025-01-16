@@ -11,6 +11,7 @@ export class BaseStepComponent {
   protected multiStepFormService: MultiStepFormService =
     inject(MultiStepFormService);
   private _onDestroy$: Subject<boolean> = new Subject<boolean>();
+  private _currentStepKey!: string;
 
   protected async listenForFormChanges(formRef: FormGroup) {
     const currentStep = await this._getCurrentStep();
@@ -40,6 +41,7 @@ export class BaseStepComponent {
 
   protected async initializeFormWithSavedFields(formRef: FormGroup) {
     const currentStep = await this._getCurrentStep();
+    this._currentStepKey = currentStep.key;
     const currentStepFieldValues = this.multiStepFormService.getStepFieldValues(
       currentStep.key
     );
@@ -55,5 +57,10 @@ export class BaseStepComponent {
 
   private _getCurrentStep() {
     return firstValueFrom(this.multiStepFormService.getCurrentUserStep());
+  }
+
+  public onResetCurrentForm(): void {
+    this.form.reset();
+    this.multiStepFormService.resetCurrentForm(this._currentStepKey);
   }
 }

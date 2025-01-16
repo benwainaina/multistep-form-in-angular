@@ -76,10 +76,14 @@ export class MultiStepFormService {
     return this._multiStepForm[stepKey];
   }
 
-  public resetForm(): void {
+  public resetAllForms(): void {
     for (const key in this._multiStepForm) {
       this._multiStepForm[key] = {};
     }
     this.setCurrentUserStep(0);
+  }
+
+  public resetCurrentForm(stepKey: string): void {
+    this._multiStepForm[stepKey] = {};
   }
 }
