@@ -24,7 +24,6 @@ export class PersonalDetailsComponent extends BaseStepComponent {
   }
 
   override ngOnInit(): void {
-    super.ngOnInit();
     this.initializeFormWithSavedFields(this.form);
     this.registerFormFields(this.form);
     this.listenForFormChanges(this.form);
