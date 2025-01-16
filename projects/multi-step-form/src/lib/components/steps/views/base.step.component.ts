@@ -12,10 +12,6 @@ export class BaseStepComponent {
     inject(MultiStepFormService);
   private _onDestroy$: Subject<boolean> = new Subject<boolean>();
 
-  ngOnInit(): void {
-    this._listenForFormReset();
-  }
-
   protected async listenForFormChanges(formRef: FormGroup) {
     const currentStep = await this._getCurrentStep();
     /**
@@ -59,16 +55,5 @@ export class BaseStepComponent {
 
   private _getCurrentStep() {
     return firstValueFrom(this.multiStepFormService.getCurrentUserStep());
-  }
-
-  private _listenForFormReset(): void {
-    this.multiStepFormService.resetForms$
-      .pipe(
-        takeUntil(this._onDestroy$),
-        filter((status) => status === true)
-      )
-      .subscribe({
-        next: () => this.form.reset(),
-      });
   }
 }

@@ -16,7 +16,7 @@ export class AdditionalInformationComponent extends BaseStepComponent {
     });
   }
 
-  override ngOnInit(): void {
+  ngOnInit(): void {
     this.initializeFormWithSavedFields(this.form);
     this.registerFormFields(this.form);
     this.listenForFormChanges(this.form);
